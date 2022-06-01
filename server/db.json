@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "crokster1996@gmail.com",
+      "password": "123456789"
+    },
+    {
+      "email": "example@exmp.ru",
+      "password": "1234567",
+      "id": 3
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "admin12345",
+      "id": 4
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "initials": "Ivanov Ivan Ivanovich",
+      "birth": "15.10.1994",
+      "telNumber": "+79102342425",
+      "gender": "Мужской",
+      "groupClients": "VIP",
+      "doctor": "Петров",
+      "sms": false
+    }
+  ]
+}
