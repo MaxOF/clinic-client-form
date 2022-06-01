@@ -20,8 +20,8 @@ function App() {
     return (
         <div className="App">
             <Box sx={{flexGrow: 1}}>
-                <AppBar position='static' style={{borderRadius: '10px'}}>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{padding: '10px'}}>
+                <AppBar position={'static'}   style={{borderRadius: '10px'}}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{padding: '10px', margin: '0 auto'}}>
                         Appointment to doctor
                     </Typography>
                 </AppBar>
