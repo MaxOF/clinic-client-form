@@ -37,6 +37,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {...state, isLoggedIn: action.value}
         case 'AUTH/SET-USERS':
             return {...state, users: action.users}
+        case 'AUTH/SET-IS-AUTH':
+            return {...state, isAuth: action.isAuth}
         default:
             return state
     }
@@ -44,10 +46,11 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 //types for actions
 
-type ActionsType = SetIsLoggedInType | SetUsersType
+type ActionsType = SetIsLoggedInType | SetUsersType | SetIsAuthType
 
 export type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>
 export type SetUsersType = ReturnType<typeof setUsers>
+export type SetIsAuthType = ReturnType<typeof setIsAuth>
 
 
 //actions

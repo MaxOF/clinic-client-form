@@ -1,11 +1,15 @@
-import React from 'react';
-import {Routes, Route, Navigate} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import './App.css';
-import {AppBar, Box, Container, Typography} from "@mui/material";
+import {AppBar, Box, Button, Container, Toolbar, Typography} from "@mui/material";
 import {Appointment} from "./features/Appointment/Appointment";
 import {SignUp} from "./features/SignUp/SignUp";
 import {ErrorPage} from "./features/ErrorPage/ErrorPage";
 import {Login} from "./features/Login/Login";
+import {AppRootStateType, useAppSelector} from "./app/store";
+import {useDispatch} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {DispatchThunkAuth, loginTC, setIsAuth, setIsLoggedIn} from "./features/Login/authReducer";
 
 export enum pathEnum {
     main = '/',
@@ -17,15 +21,51 @@ export enum pathEnum {
 
 
 function App() {
+
+    const {users, isLoggedIn} = useAppSelector(state => state.auth)
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, DispatchThunkAuth>>()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch(loginTC())
+    }, [])
+
+    useEffect(() => {
+        const localState = localStorage.getItem('user')
+        if (localState === null) {
+            navigate(pathEnum.login)
+        }
+        const user = JSON.parse(localState || '{}')
+        const filteredEmail = users.filter(f => f.email === user.email)
+        if (filteredEmail.length) {
+            if (filteredEmail[0].password === user.password) {
+                dispatch(setIsAuth(true))
+                dispatch(setIsLoggedIn(true))
+            }
+        } else {
+            navigate(pathEnum.login)
+        }
+    }, [users])
+
+    const logoutHandler = () => {
+        localStorage.removeItem('user')
+        dispatch(setIsLoggedIn(false))
+        dispatch(setIsAuth(false))
+        navigate(pathEnum.login)
+    }
+
+
     return (
         <div className="App">
-            <Box sx={{flexGrow: 1}}>
-                <AppBar position={'static'}   style={{borderRadius: '10px'}}>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} style={{padding: '10px', margin: '0 auto'}}>
+            <AppBar position={'static'} style={{borderRadius: '10px'}}>
+                <Toolbar>
+                    <Typography variant="h6" component="div" sx={{flexGrow: 1}} style={{padding: '10px'}}>
                         Appointment to doctor
                     </Typography>
-                </AppBar>
-            </Box>
+                    {isLoggedIn && <Button color='inherit' onClick={logoutHandler}>Log out</Button>}
+                </Toolbar>
+            </AppBar>
             <Container fixed>
                 <Routes>
                     <Route path={pathEnum.main} element={<Appointment/>}/>
