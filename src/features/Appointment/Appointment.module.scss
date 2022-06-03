@@ -1,13 +1,12 @@
 .fio {
-  padding: 0px 0px 40px 0px;
-
+  padding-bottom: 40px;
   input {
     width: 300px;
   }
 }
 
 .birth {
-  padding: 0px 0px 40px 0px;
+  padding-bottom: 40px;
 
   input {
     box-sizing: border-box;
@@ -21,7 +20,7 @@
 }
 
 .phone {
-  padding: 0px 0px 40px 0px;
+  padding-bottom: 40px;
 
   input {
     width: 300px;
@@ -36,9 +35,8 @@
 }
 
 .groupClients {
-  padding: 0px 0px 40px 0px;
-
-  .selectGroup {
+  padding-bottom: 20px;
+  .selectClient {
     width: 300px;
     box-sizing: border-box;
     height: 39px;
@@ -47,4 +45,19 @@
     padding: 0 10px;
     outline: none;
   }
+}
+.doctor {
+  padding-bottom: 20px;
+  .selectDoctor {
+    box-sizing: border-box;
+    height: 39px;
+    border-radius: 4px;
+    width: 180px;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+  }
+}
+.sms {
+  padding-bottom: 20px;
 }

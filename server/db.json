@@ -46,6 +46,16 @@
       "doctor": "",
       "sms": false,
       "id": 3
+    },
+    {
+      "fullName": "Федоров Николай Дмитриевич",
+      "birth": "1995-12-14",
+      "telNumber": "79120323232",
+      "gender": "мужской",
+      "groupClients": "ДМС",
+      "doctor": "Петров",
+      "sms": true,
+      "id": 4
     }
   ]
 }
