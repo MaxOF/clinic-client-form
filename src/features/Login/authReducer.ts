@@ -1,15 +1,14 @@
-import {setAppError, SetAppErrorType} from "../../app/appReducer";
+import {AxiosError, AxiosResponse} from "axios";
 import {ThunkAction} from "redux-thunk";
+
+
 import {AppRootStateType} from "../../app/store";
 import {AddUserType, authAPI} from "../../api/api";
-import {AxiosError, AxiosResponse} from "axios";
-
+import {setAppError, SetAppErrorType} from "../../app/appReducer";
 
 
 
 //types >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
 export type UserType = {
     id: number
     email: string
@@ -23,6 +22,8 @@ type InitialStateType = {
     signUp: boolean
     user: string
 }
+
+//initial state >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const initialState = {
     isLoggedIn: false,
     users: [],
@@ -31,6 +32,7 @@ export const initialState = {
     user: ''
 }
 
+//reducer >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'AUTH/SET-IS-LOGGED-IN':
@@ -46,7 +48,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
     }
 }
 
-//types for actions
+//types for actions>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 type ActionsType = SetIsLoggedInType | SetUsersType | SetIsAuthType | AddUserACType
 
@@ -56,16 +58,18 @@ export type SetIsAuthType = ReturnType<typeof setIsAuth>
 export type AddUserACType = ReturnType<typeof addUserAC>
 
 
-//actions
+//actions>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const setIsLoggedIn = (value: boolean) => ({type: 'AUTH/SET-IS-LOGGED-IN', value} as const)
 export const setUsers = (users: UserType[]) => ({type: 'AUTH/SET-USERS', users} as const)
 export const setIsAuth = (isAuth: boolean) => ({type: 'AUTH/SET-IS-AUTH', isAuth} as const)
 export const addUserAC = (success: boolean) => ({type: 'AUTH/ADD-USER', success} as const)
 
-
+//types for thunks>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export type DispatchThunkAuth = ActionsType | SetAppErrorType
 type ThunkType = ThunkAction<Promise<void>, AppRootStateType, unknown, DispatchThunkAuth>
 
+
+//thunks>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const loginTC = (): ThunkType => (dispatch) => {
     return authAPI.getUsers()
         .then((res: AxiosResponse) => {

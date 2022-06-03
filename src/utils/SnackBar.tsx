@@ -37,7 +37,6 @@ export const SnackBar = () => {
             return 'Appointment has created successfully😉'
         }
     }
-    debugger
     return (
         <Snackbar open={error !== null || createdAppointment !== false}  autoHideDuration={5000} onClose={handleClose}>
             <Alert severity={alertHandler()} sx={{width: '100%'}} onClose={handleClose}>

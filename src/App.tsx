@@ -24,8 +24,8 @@ export enum pathEnum {
 function App() {
 
     const {users, isLoggedIn} = useAppSelector(state => state.auth)
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, DispatchThunkAuth>>()
 
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, DispatchThunkAuth>>()
     const navigate = useNavigate()
 
     useEffect(() => {

@@ -1,12 +1,14 @@
 import React from 'react';
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import {addUser, DispatchThunkAuth} from "../Login/authReducer";
+import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType, useAppSelector} from "../../app/store";
-import {useNavigate, Navigate} from "react-router-dom";
+
 import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
+
+import {AppRootStateType} from "../../app/store";
+import {addUser, DispatchThunkAuth} from "../Login/authReducer";
 
 export const SignUp = () => {
 
@@ -35,6 +37,7 @@ export const SignUp = () => {
         }
     })
 
+
     return (
         <Grid container justifyContent={'center'}>
             <Grid item justifyContent={'center'}>
@@ -54,8 +57,6 @@ export const SignUp = () => {
                             {formik.touched.email && formik.errors.email ?
                                 <div style={{color: 'red'}}>{formik.errors.email}</div> :
                                 null}
-
-
                             <TextField type="password"
                                        label="Password"
                                        margin="normal" {...formik.getFieldProps('password')}

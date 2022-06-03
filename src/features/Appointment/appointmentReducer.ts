@@ -1,8 +1,10 @@
-import {setAppError, SetAppErrorType} from "../../app/appReducer";
-import {ThunkAction} from "redux-thunk";
-import {AppRootStateType} from "../../app/store";
-import {AddUserType, appointmentAPI, authAPI, NewAppointmentType} from "../../api/api";
 import {AxiosError, AxiosResponse} from "axios";
+import {ThunkAction} from "redux-thunk";
+
+import {setAppError, SetAppErrorType} from "../../app/appReducer";
+import {AppRootStateType} from "../../app/store";
+import {appointmentAPI, NewAppointmentType} from "../../api/api";
+
 
 
 //types >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
