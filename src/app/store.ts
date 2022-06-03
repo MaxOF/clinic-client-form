@@ -13,11 +13,12 @@ const rootReducer = combineReducers({
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
-
+//types for store>>>>>>>>>>>>>
 export type RootReducerType = typeof rootReducer
 export type AppRootStateType = ReturnType<RootReducerType>
 export type RootState = ReturnType<typeof store.getState>
-
 type AppDispatchType = typeof store.dispatch
+
+//types for selector and dispatch
 export const useAppDispatch = () => useDispatch<AppDispatchType>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

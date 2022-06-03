@@ -99,7 +99,7 @@ export const Login = () => {
                             <Button type={'submit'} variant={'contained'} color={'primary'} style={{marginTop: '30px'}}>
                                 Login
                             </Button>
-                            <Button variant="outlined" onClick={navToSignUp} style={{margin: '20px auto'}}
+                            <Button variant="outlined" onClick={navToSignUp} style={{margin: '30px auto'}}
                                     color={'secondary'}>Sign up</Button>
                         </FormGroup>
                     </FormControl>

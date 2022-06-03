@@ -14,6 +14,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 export const SnackBar = () => {
     const {error} = useAppSelector(state => state.app)
     const {createdAppointment} = useAppSelector(state => state.appointment)
+
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, ActionsType>>()
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -33,10 +34,10 @@ export const SnackBar = () => {
         if (error) {
             return error
         } else if (createdAppointment) {
-            return 'Appointment has created successfully'
+            return 'Appointment has created successfully😉'
         }
     }
-
+    debugger
     return (
         <Snackbar open={error !== null || createdAppointment !== false}  autoHideDuration={5000} onClose={handleClose}>
             <Alert severity={alertHandler()} sx={{width: '100%'}} onClose={handleClose}>

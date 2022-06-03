@@ -7,14 +7,13 @@ import {AxiosError, AxiosResponse} from "axios";
 
 //types >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
 type InitialStateType = {
     createdAppointment: boolean
 }
 export const initialState = {
     createdAppointment: false
 }
+//reducer>>>>>>>>>>>>>
 
 export const appointmentReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -25,20 +24,18 @@ export const appointmentReducer = (state: InitialStateType = initialState, actio
     }
 }
 
-//types for actions
+//types for actions>>>>>>>>>>>>>
 
 type ActionsType = AddAppointmentType
-
 export type AddAppointmentType = ReturnType<typeof addAppointment>
 
-//actions
+//actions>>>>>>>>>>>>>
 export const addAppointment = (success: boolean) => ({type: 'APPOINTMENT/ADD-APPOINTMENT', success} as const)
 
-
+//thunk types>>>>>>>>>>>>>
 
 export type DispatchThunkAppointment = ActionsType | SetAppErrorType
 type ThunkType = ThunkAction<Promise<void>, AppRootStateType, unknown, DispatchThunkAppointment>
-
 
 export const createAppointment = (newAppointment: NewAppointmentType): ThunkType => (dispatch) => {
     return appointmentAPI.createAppointment(newAppointment)

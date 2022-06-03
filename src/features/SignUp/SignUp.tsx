@@ -5,12 +5,10 @@ import {addUser, DispatchThunkAuth} from "../Login/authReducer";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../app/store";
-import {useNavigate} from "react-router-dom";
-import {pathEnum} from "../../App";
+import {useNavigate, Navigate} from "react-router-dom";
 import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 
 export const SignUp = () => {
-    const {signUp} = useAppSelector(state => state.auth)
 
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, DispatchThunkAuth>>()
     const navigate = useNavigate()
@@ -36,9 +34,6 @@ export const SignUp = () => {
             dispatch(addUser({email: values.email, password: values.password}))
         }
     })
-    if(signUp) {
-        navigate(pathEnum.login)
-    }
 
     return (
         <Grid container justifyContent={'center'}>
@@ -47,6 +42,10 @@ export const SignUp = () => {
                     <FormControl>
                         <FormLabel>
                             <h2 style={{margin: '40px auto'}}>Sign Up</h2>
+                            <p>In order to make an appointment please sign up<br/>
+                                on our site. I know that takes your invaluable time.<br/>
+                                It`s necessary.<br/>
+                                Thank you for understanding:)</p>
                         </FormLabel>
                         <FormGroup>
                             <TextField label="Email"
@@ -70,8 +69,8 @@ export const SignUp = () => {
                             {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                                 <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
 
-                            <Button type="submit" variant={'contained'} color={'primary'} style={{margin: '7px'}}>Sign Up</Button>
-                            <Button variant="outlined" onClick={() => navigate('/login')} color='error' style={{margin: '7px'}}>Cancel
+                            <Button type="submit" variant={'contained'} color={'primary'} style={{margin: '20px 7px 7px 7px'}}>Sign Up</Button>
+                            <Button variant="outlined" onClick={() => navigate('/login')} color='error' style={{margin: '7px 7px 30px 7px'}}>Cancel
                             </Button>
                         </FormGroup>
                     </FormControl>
