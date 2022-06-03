@@ -1,8 +1,5 @@
-import {appReducer, setAppError} from "./appReducer";
+import {appReducer, setAppError, InitialStateType} from "./appReducer";
 
-type InitialStateType = {
-    error: string | null
-}
 
 let startState: InitialStateType
 

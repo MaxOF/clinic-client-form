@@ -1,5 +1,5 @@
 //type for initial state >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-type InitialStateType = {
+export type InitialStateType = {
     error: string | null
 }
 //initial state >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

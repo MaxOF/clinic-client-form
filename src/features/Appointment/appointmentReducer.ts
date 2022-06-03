@@ -9,7 +9,7 @@ import {appointmentAPI, NewAppointmentType} from "../../api/api";
 
 //types >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-type InitialStateType = {
+export type InitialStateType = {
     createdAppointment: boolean
 }
 
