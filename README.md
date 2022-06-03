@@ -31,6 +31,7 @@ Launches the test runner in the interactive watch mode.
 **The app has the next stack:**\
 *React v18.1.0*\
 *Redux v4.2.0*\
-*Material UI*
+*Material UI*\
+*SCSS, CSS-modules*
 
 
