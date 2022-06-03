@@ -1,3 +1,14 @@
+
+@mixin customInput ($box-sizing, $height, $border-radius, $width, $font-size, $padding, $outline) {
+  box-sizing: $box-sizing;
+  height: $height;
+  border-radius: $border-radius;
+  width: $width;
+  font-size: $font-size;
+  padding: $padding;
+  outline: $outline;
+}
+
 .fio {
   padding-bottom: 40px;
   input {
@@ -8,51 +19,27 @@
 .birth {
   padding-bottom: 40px;
   input {
-    box-sizing: border-box;
-    height: 39px;
-    border-radius: 4px;
-    width: 180px;
-    font-size: 16px;
-    padding: 0 10px;
-    outline: none;
+    @include customInput(border-box, 39px, 4px, 180px, 16px, 0 10px, none)
   }
 }
 
 .phone {
   padding-bottom: 40px;
   input {
-    width: 300px;
-    box-sizing: border-box;
-    height: 39px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    padding: 0 10px;
-    outline: none;
+    @include customInput(border-box, 39px, 4px, 300px, 16px, 0 10px, none)
   }
 }
 .groupClients {
   padding-bottom: 20px;
   .selectClient {
-    width: 300px;
-    box-sizing: border-box;
-    height: 39px;
-    border-radius: 4px;
-    font-size: 16px;
-    padding: 0 10px;
-    outline: none;
+    @include customInput(border-box, 39px, 4px, 300px, 16px, 0 10px, none)
   }
 }
 .doctor {
   padding-bottom: 20px;
   .selectDoctor {
-    box-sizing: border-box;
-    height: 39px;
-    border-radius: 4px;
-    width: 180px;
-    font-size: 16px;
-    padding: 0 10px;
-    outline: none;
+    @include customInput(border-box, 39px, 4px, 180px, 16px, 0 10px, none)
   }
 }
 .sms {

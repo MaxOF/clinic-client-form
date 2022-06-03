@@ -50,6 +50,7 @@ export const Appointment = () => {
 
     const groupClients = ['VIP', 'Проблемные', 'ОМС', 'ДМС']
     const doctors = ['Петров', 'Захаров', 'Черниговская']
+    const gender = ['Мужской', 'Женский']
 
     const formik = useFormik({
         initialValues: {
@@ -181,18 +182,15 @@ export const Appointment = () => {
                             value={formik.values.gender}
                             onChange={formik.handleChange}
                         >
-                            <FormControlLabel
-                                value='мужской'
-                                control={<Radio color='primary'/>}
-                                label="мужской"
-                                labelPlacement="end"
-                            />
-                            <FormControlLabel
-                                value='женский'
-                                control={<Radio color='secondary'/>}
-                                label='женский'
-                                labelPlacement="end"
-                            />
+                            {gender.map((gender, index) => {
+                                return <FormControlLabel
+                                    key={index}
+                                    value={gender}
+                                    control={<Radio color='primary'/>}
+                                    label={gender}
+                                    labelPlacement="end"
+                                />
+                            })}
                         </RadioGroup>
                     </Grid>
 
