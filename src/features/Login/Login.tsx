@@ -2,13 +2,15 @@ import React from 'react';
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType, useAppSelector} from "../../app/store";
-import {DispatchThunkAuth, loginTC, setIsLoggedIn} from "./authReducer";
 import {useNavigate, Navigate} from "react-router-dom";
-import {pathEnum} from "../../App";
 import {Button, FormControl, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 
-export type FormikErrorsType = {
+import {AppRootStateType, useAppSelector} from "../../app/store";
+import {DispatchThunkAuth, loginTC, setIsLoggedIn} from "./authReducer";
+import {pathEnum} from "../../App";
+import {setAppError} from "../../app/appReducer";
+
+type FormikErrorsType = {
     email?: string
     password?: string
 }
@@ -52,6 +54,8 @@ export const Login = () => {
                     dispatch(setIsLoggedIn(true))
                     formik.resetForm()
                 }
+            } else {
+                dispatch(setAppError('Wrong email or password 😠'))
             }
         }
     })
@@ -71,11 +75,8 @@ export const Login = () => {
                             <p>To log in please sign up. In order to sign up<br/>
                             click the button "Sign up"<br/>
                             or use common test account credentials:</p>
-                            <p>Email: example@exmp.ru<br/>
+                            <p style={{fontWeight: "bold"}}>Email: example@exmp.ru<br/>
                             Password: 1234567</p>
-                            <p>Also you can use admin account credentials:</p>
-                            <p>Email: admin@gmail.com<br/>
-                            Password: admin12345</p>
                         </FormLabel>
                         <FormGroup>
                             <TextField
@@ -89,6 +90,7 @@ export const Login = () => {
                             <TextField
                                 label='Password'
                                 margin='normal'
+                                type='password'
                                 {...formik.getFieldProps('password')}
                                 onBlur={formik.handleBlur}
                             />

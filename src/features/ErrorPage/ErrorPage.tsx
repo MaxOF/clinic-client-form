@@ -1,9 +1,13 @@
 import React from 'react';
+import {Grid} from "@mui/material";
 
 export const ErrorPage = () => {
     return (
-        <div>
+        <Grid container>
+            <Grid item>
 
-        </div>
+            </Grid>
+
+        </Grid>
     );
 };

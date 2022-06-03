@@ -10,6 +10,7 @@ import {AppRootStateType, useAppSelector} from "./app/store";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {DispatchThunkAuth, loginTC, setIsAuth, setIsLoggedIn} from "./features/Login/authReducer";
+import {SnackBar} from "./utils/SnackBar";
 
 export enum pathEnum {
     main = '/',
@@ -58,6 +59,7 @@ function App() {
 
     return (
         <div className="App">
+            <SnackBar />
             <AppBar position={'static'} style={{borderRadius: '10px'}}>
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}} style={{padding: '10px'}}>

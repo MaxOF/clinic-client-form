@@ -1,7 +1,7 @@
 import {setAppError, SetAppErrorType} from "../../app/appReducer";
 import {ThunkAction} from "redux-thunk";
 import {AppRootStateType} from "../../app/store";
-import {authAPI} from "../../api/api";
+import {AddUserType, authAPI} from "../../api/api";
 import {AxiosError, AxiosResponse} from "axios";
 
 
@@ -39,6 +39,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
             return {...state, users: action.users}
         case 'AUTH/SET-IS-AUTH':
             return {...state, isAuth: action.isAuth}
+        case 'AUTH/ADD-USER':
+            return {...state, signUp: action.success}
         default:
             return state
     }
@@ -46,17 +48,19 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 //types for actions
 
-type ActionsType = SetIsLoggedInType | SetUsersType | SetIsAuthType
+type ActionsType = SetIsLoggedInType | SetUsersType | SetIsAuthType | AddUserACType
 
 export type SetIsLoggedInType = ReturnType<typeof setIsLoggedIn>
 export type SetUsersType = ReturnType<typeof setUsers>
 export type SetIsAuthType = ReturnType<typeof setIsAuth>
+export type AddUserACType = ReturnType<typeof addUserAC>
 
 
 //actions
 export const setIsLoggedIn = (value: boolean) => ({type: 'AUTH/SET-IS-LOGGED-IN', value} as const)
 export const setUsers = (users: UserType[]) => ({type: 'AUTH/SET-USERS', users} as const)
 export const setIsAuth = (isAuth: boolean) => ({type: 'AUTH/SET-IS-AUTH', isAuth} as const)
+export const addUserAC = (success: boolean) => ({type: 'AUTH/ADD-USER', success} as const)
 
 
 export type DispatchThunkAuth = ActionsType | SetAppErrorType
@@ -69,5 +73,16 @@ export const loginTC = (): ThunkType => (dispatch) => {
         })
         .catch((e: AxiosError) => {
             dispatch(setAppError('Wrong log in 😠'))
+        })
+}
+
+export const addUser = (newUser: AddUserType): ThunkType => (dispatch) => {
+    return authAPI.addUser(newUser)
+        .then((res: AxiosResponse) => {
+            dispatch(setUsers(res.data))
+            dispatch(addUserAC(true))
+        })
+        .catch((e: AxiosError) => {
+            dispatch(setAppError('Wrong add user 😠'))
         })
 }
