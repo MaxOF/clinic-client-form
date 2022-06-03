@@ -1,17 +1,48 @@
 .fio {
   padding: 0px 0px 40px 0px;
+
   input {
     width: 300px;
   }
 }
 
 .birth {
+  padding: 0px 0px 40px 0px;
+
   input {
     box-sizing: border-box;
     height: 39px;
-    border: 1px solid #1976d2;
     border-radius: 4px;
-    width: 160px;
+    width: 180px;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+  }
+}
+
+.phone {
+  padding: 0px 0px 40px 0px;
+
+  input {
+    width: 300px;
+    box-sizing: border-box;
+    height: 39px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+  }
+}
+
+.groupClients {
+  padding: 0px 0px 40px 0px;
+
+  .selectGroup {
+    width: 300px;
+    box-sizing: border-box;
+    height: 39px;
+    border-radius: 4px;
     font-size: 16px;
     padding: 0 10px;
     outline: none;

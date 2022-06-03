@@ -38,54 +38,14 @@
       "id": 2
     },
     {
-      "fullName": "Шмелева",
-      "birth": "2003-02-14",
+      "fullName": "Валентина",
+      "birth": "1954-04-05",
       "telNumber": "",
-      "gender": "",
-      "groupClients": "VIP",
+      "gender": "male",
+      "groupClients": "ОМС",
       "doctor": "",
       "sms": false,
       "id": 3
-    },
-    {
-      "fullName": "Шмелева",
-      "birth": "2003-02-14",
-      "telNumber": "",
-      "gender": "",
-      "groupClients": "VIP",
-      "doctor": "",
-      "sms": false,
-      "id": 4
-    },
-    {
-      "fullName": "Денис",
-      "birth": "1999-02-14",
-      "telNumber": "",
-      "gender": "",
-      "groupClients": "VIP",
-      "doctor": "",
-      "sms": false,
-      "id": 5
-    },
-    {
-      "fullName": "Денис",
-      "birth": "1999-02-14",
-      "telNumber": "",
-      "gender": "",
-      "groupClients": "VIP",
-      "doctor": "",
-      "sms": false,
-      "id": 6
-    },
-    {
-      "fullName": "Фыонг",
-      "birth": "1992-02-01",
-      "telNumber": "",
-      "gender": "",
-      "groupClients": "Проблемные",
-      "doctor": "",
-      "sms": false,
-      "id": 7
     }
   ]
 }

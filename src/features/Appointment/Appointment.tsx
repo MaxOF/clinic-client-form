@@ -6,7 +6,7 @@ import {
     FormGroup, FormLabel,
     Grid,
     MenuItem,
-    RadioGroup,
+    RadioGroup, Select,
     TextField
 } from "@mui/material";
 import {useFormik} from "formik";
@@ -15,10 +15,11 @@ import PhoneInput from 'react-phone-input-2'
 import Radio from '@mui/material/Radio';
 
 import {createAppointment, DispatchThunkAppointment} from "./appointmentReducer";
-import {useDispatch} from "react-redux";
+import {Selector, useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../app/store";
 import styles from './Appointment.module.scss'
+import SelectInput from "@mui/material/Select/SelectInput";
 
 
 //types for formik >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -59,13 +60,13 @@ export const Appointment = () => {
         validate: (values) => {
             const errors: FormikErrorsType = {}
             if (!values.fullName) {
-                errors.fullName = 'Full name is required field'
+                errors.fullName = 'ФИО is required field'
             }
             if (!values.birth) {
-                errors.birth = 'Required field'
+                errors.birth = 'Дата рождения is required field'
             }
             if (!values.groupClients) {
-                errors.groupClients = 'Required field'
+                errors.groupClients = 'Группа клиентов is required field'
             }
             return errors
         },
@@ -90,10 +91,10 @@ export const Appointment = () => {
                     <h1>Form of appointment to our best doctors</h1>
                     <span> If it possible fill all fields, but if you don`t have enough time fill all required fields:</span>
                     <span style={{fontWeight: 'bold', marginTop: '10px', minWidth: '400px'}}>ФИО, Дата Рождения, Группа клиентов</span>
-                    <span style={{ marginTop: '10px'}}>Thanks that you`re using our service!</span>
+                    <span style={{marginTop: '10px'}}>Thanks that you`re using our service!</span>
                 </Grid>
                 <Grid container item md={7} style={{marginTop: '30px'}}>
-                    <Grid item xs={7} style={{border: '1px solid black'}} className={styles.fio}>
+                    <Grid item md={7} style={{border: '1px solid black'}} className={styles.fio}>
                         <div style={{marginBottom: '15px'}}>
                             ФИО
                         </div>
@@ -108,99 +109,96 @@ export const Appointment = () => {
                                 return someValue
                             }}
                             placeholder='Иванов Иван Иванович'
-                            style={formik.touched.fullName && formik.errors.fullName ? {border: '1px solid indianred'} : undefined}
+                            style={formik.touched.fullName && formik.errors.fullName ? {
+                                border: '1px solid red',
+                                width: '300px',
+                                height: '38px',
+                                borderRadius: '4px',
+                            } : undefined}
                         />
-                        {formik.touched.fullName && formik.errors.fullName ?
-                            <div style={{color: 'indianred'}}>{formik.errors.fullName}</div> : null}
+                        <div style={{color: 'red', margin: '5px 0px 0px 10px'}}>{formik.touched.fullName && formik.errors.fullName ?
+                            formik.errors.fullName : null}</div>
                     </Grid>
                     <Grid item md={5} style={{border: '1px solid black'}} className={styles.birth}>
                         <div style={{marginBottom: '15px'}}>
-                             Дата Рождения
+                            Дата Рождения
                         </div>
                         <TextField
                             type="date"
                             {...formik.getFieldProps('birth')}
                             inputProps={{max: new Date().toISOString().slice(0, 10)}}
-
+                            style={formik.touched.fullName && formik.errors.fullName ? {
+                                border: '1px solid red',
+                                borderRadius: '4px'
+                            } : undefined}
                         />
-                        {formik.touched.birth && formik.errors.birth ?
-                            <div style={{color: 'indianred'}}>{formik.errors.birth}</div> : null}
+                        <div style={{color: 'red', margin: '5px 0px 0px 10px'}}>{formik.touched.birth && formik.errors.birth ?
+                            formik.errors.birth : null}</div>
                     </Grid>
-                    <Grid item xs={4} style={{border: '1px solid black'}}>
-                        Gender :
-                        <Box>
-                            <FormControl component="fieldset">
-                                <RadioGroup
-                                    row aria-label="position"
-                                    name="gender"
-                                    defaultValue="top"
-                                    value={formik.values.gender}
-                                    onChange={formik.handleChange}
-                                >
-                                    <FormControlLabel
-                                        value="male"
-                                        control={<Radio color="primary"/>}
-                                        label="male"
-                                        labelPlacement="end"
-                                    />
-                                    <FormControlLabel
-                                        value="female"
-                                        control={<Radio color="primary"/>}
-                                        label="female"
-                                        labelPlacement="end"
-                                    />
-                                    <FormControlLabel
-                                        value="unisex"
-                                        control={<Radio color="primary"/>}
-                                        label="unisex"
-                                        labelPlacement="end"
-                                    />
-                                </RadioGroup>
-                                {formik.touched.gender && formik.errors.gender ?
-                                    <div style={{color: 'red'}}>{formik.errors.gender}</div> : null}
-                            </FormControl>
-                        </Box>
+                    <Grid item md={7} style={{border: '1px solid black'}} className={styles.phone}>
+                        <div style={{marginBottom: '15px'}}>
+                            Номер телефона
+                        </div>
+                        <PhoneInput
+                            onChange={(value, data, e, formattedValue) => {
+                                formik.handleChange(value)
+                                formik.values.telNumber = value
+                                return value
+                            }}
+                            specialLabel={''}
+                            country={'ru'}
+                        />
                     </Grid>
-                    <Grid item xs={8} style={{border: '1px solid black'}}>
-                        <Box>
-                            <PhoneInput
-                                onChange={(value, data, e, formattedValue) => {
-                                    formik.handleChange(value)
-                                    formik.values.telNumber = value
-                                    return value
-                                }}
-                                specialLabel={''}
-                                country={'ru'}
-                                inputStyle={{
-                                    borderColor: "red"
-                                }}
+                    <Grid item md={5} style={{border: '1px solid black'}}>
+                        <div style={{marginBottom: '15px'}}>
+                            Пол
+                        </div>
+                        <RadioGroup
+                            row aria-label="position"
+                            name="gender"
+                            defaultValue="top"
+                            value={formik.values.gender}
+                            onChange={formik.handleChange}
+                        >
+                            <FormControlLabel
+                                value="мужской"
+                                control={<Radio color="primary"/>}
+                                label="мужской"
+                                labelPlacement="end"
                             />
-                            {formik.touched.telNumber && formik.errors.telNumber ?
-                                <div style={{color: 'red'}}>{formik.errors.telNumber}</div> : null}
-                        </Box>
+                            <FormControlLabel
+                                value="женский"
+                                control={<Radio color="secondary"/>}
+                                label="женский"
+                                labelPlacement="end"
+                            />
+                        </RadioGroup>
                     </Grid>
-                    <Grid item xs={8} style={{border: '1px solid black'}}>
-                        <Box sx={{minWidth: 120}}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    name="groupClients"
-                                    value={formik.values.groupClients}
-                                    label="Group clients"
-                                    onChange={formik.handleChange}
-                                    select
-                                    focused
-                                >
-                                    <MenuItem value={'VIP'}>VIP</MenuItem>
-                                    <MenuItem value={'Проблемные'}>Проблемные</MenuItem>
-                                    <MenuItem value={'ОМС'}>ОМС</MenuItem>
-                                    <MenuItem value={'ДМС'}>ДМС</MenuItem>
-                                </TextField>
-                                {formik.touched.groupClients && formik.errors.groupClients ?
-                                    <div style={{color: 'red'}}>{formik.errors.groupClients}</div> : null}
-                            </FormControl>
-                        </Box>
+                    <Grid item md={7} style={{border: '1px solid black'}} className={styles.groupClients}>
+                        <div style={{marginBottom: '15px'}}>
+                            Группа клиентов
+                        </div>
+                        <Select
+                            name="groupClients"
+                            value={formik.values.groupClients}
+                            onChange={formik.handleChange}
+                            className={styles.selectGroup}
+                            style={formik.touched.fullName && formik.errors.fullName ? {
+                                border: '1px solid red',
+                                borderRadius: '4px'
+                            } : undefined}
+                        >
+                            <MenuItem value={'VIP'}>VIP</MenuItem>
+                            <MenuItem value={'Проблемные'}>Проблемные</MenuItem>
+                            <MenuItem value={'ОМС'}>ОМС</MenuItem>
+                            <MenuItem value={'ДМС'}>ДМС</MenuItem>
+                        </Select>
+                        <div style={{color: 'red', margin: '5px 0px 0px 10px'}}>{formik.touched.groupClients && formik.errors.groupClients ?
+                            formik.errors.groupClients : null}</div>
                     </Grid>
-                    <Grid item xs={4} style={{border: '1px solid black'}}>
+
+
+                    <Grid item md={5} style={{border: '1px solid black'}}>
                         <Box>
                             <FormControl fullWidth>
                                 <TextField
@@ -220,6 +218,8 @@ export const Appointment = () => {
                             </FormControl>
                         </Box>
                     </Grid>
+
+
                     <Grid style={{border: '1px solid black'}}>
                         <Box>
                             Send me a sms with confirmation
