@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {UserType} from "../features/Login/authReducer";
 
 const instance = axios.create({
@@ -18,18 +19,16 @@ export const authAPI = {
 
 export const appointmentAPI = {
     createAppointment(newAppointenment: NewAppointmentType) {
-        return instance.post('appointments', newAppointenment)
+        return instance.post<NewAppointmentType>('appointments', newAppointenment)
     }
 }
 
-export type BaseResponseType <D ={}> = {
-    data: D
-}
 export type AddUserType = {
     email: string
     password: string
 }
 export type NewAppointmentType = {
+    id?: string
     fullName: string
     birth: string
     telNumber?: string
