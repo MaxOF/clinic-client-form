@@ -11,6 +11,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {DispatchThunkAuth, loginTC, setIsAuth, setIsLoggedIn} from "./features/Login/authReducer";
 import {SnackBar} from "./utils/SnackBar";
+import {setAppError} from "./app/appReducer";
 
 export enum pathEnum {
     main = '/',
@@ -36,6 +37,7 @@ function App() {
         const localState = localStorage.getItem('user')
         if (localState === null) {
             navigate(pathEnum.login)
+            dispatch(setAppError('You are not authorized 😠'))
         }
         const user = JSON.parse(localState || '{}')
         const filteredEmail = users.filter(f => f.email === user.email)

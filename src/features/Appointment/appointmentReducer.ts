@@ -12,11 +12,13 @@ import {appointmentAPI, NewAppointmentType} from "../../api/api";
 type InitialStateType = {
     createdAppointment: boolean
 }
+
+//initial state >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const initialState = {
     createdAppointment: false
 }
-//reducer>>>>>>>>>>>>>
 
+//reducer>>>>>>>>>>>>>
 export const appointmentReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'APPOINTMENT/ADD-APPOINTMENT':
@@ -27,7 +29,6 @@ export const appointmentReducer = (state: InitialStateType = initialState, actio
 }
 
 //types for actions>>>>>>>>>>>>>
-
 type ActionsType = AddAppointmentType
 export type AddAppointmentType = ReturnType<typeof addAppointment>
 
@@ -39,6 +40,7 @@ export const addAppointment = (success: boolean) => ({type: 'APPOINTMENT/ADD-APP
 export type DispatchThunkAppointment = ActionsType | SetAppErrorType
 type ThunkType = ThunkAction<Promise<void>, AppRootStateType, unknown, DispatchThunkAppointment>
 
+//thunks >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 export const createAppointment = (newAppointment: NewAppointmentType): ThunkType => (dispatch) => {
     return appointmentAPI.createAppointment(newAppointment)
         .then((res: AxiosResponse) => {

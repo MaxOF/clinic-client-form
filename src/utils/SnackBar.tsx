@@ -34,7 +34,7 @@ export const SnackBar = () => {
         if (error) {
             return error
         } else if (createdAppointment) {
-            return 'Appointment has created successfully😉'
+            return 'Appointment has created successfully 😉'
         }
     }
     return (

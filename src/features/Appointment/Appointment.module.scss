@@ -1,0 +1,19 @@
+.fio {
+  padding: 0px 0px 40px 0px;
+  input {
+    width: 300px;
+  }
+}
+
+.birth {
+  input {
+    box-sizing: border-box;
+    height: 39px;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+    width: 160px;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+  }
+}

@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import {
     Box,
-    Button, Checkbox,
+    Button, Checkbox, Container,
     FormControl, FormControlLabel,
-    FormGroup,
+    FormGroup, FormLabel,
     Grid,
     MenuItem,
     RadioGroup,
@@ -17,10 +17,11 @@ import Radio from '@mui/material/Radio';
 import {createAppointment, DispatchThunkAppointment} from "./appointmentReducer";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType, useAppSelector} from "../../app/store";
-import {SnackBar} from "../../utils/SnackBar";
+import {AppRootStateType} from "../../app/store";
+import styles from './Appointment.module.scss'
 
 
+//types for formik >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 type FormikErrorsType = {
     fullName?: string,
     birth?: string,
@@ -30,6 +31,7 @@ type FormikErrorsType = {
     doctor?: string,
     sms?: boolean
 }
+
 type FormValuesType = {
     fullName: string
     birth: string,
@@ -57,7 +59,7 @@ export const Appointment = () => {
         validate: (values) => {
             const errors: FormikErrorsType = {}
             if (!values.fullName) {
-                errors.fullName = 'Required field'
+                errors.fullName = 'Full name is required field'
             }
             if (!values.birth) {
                 errors.birth = 'Required field'
@@ -82,10 +84,19 @@ export const Appointment = () => {
 
 
     return (
-        <Grid container >
-            <form onSubmit={formik.handleSubmit}>
-                <FormGroup>
-                    <Grid item xs={6} md={12}>
+        <form onSubmit={formik.handleSubmit}>
+            <Box sx={{flexGrow: 1}} style={{margin: '20px 60px 30px 60px'}}>
+                <Grid item container md={7}>
+                    <h1>Form of appointment to our best doctors</h1>
+                    <span> If it possible fill all fields, but if you don`t have enough time fill all required fields:</span>
+                    <span style={{fontWeight: 'bold', marginTop: '10px', minWidth: '400px'}}>ФИО, Дата Рождения, Группа клиентов</span>
+                    <span style={{ marginTop: '10px'}}>Thanks that you`re using our service!</span>
+                </Grid>
+                <Grid container item md={7} style={{marginTop: '30px'}}>
+                    <Grid item xs={7} style={{border: '1px solid black'}} className={styles.fio}>
+                        <div style={{marginBottom: '15px'}}>
+                            ФИО
+                        </div>
                         <ReactDadataBox
                             token="f99335723b6080f9b85bc257791d00c4f885a065"
                             type='fio'
@@ -96,25 +107,27 @@ export const Appointment = () => {
                                 formik.values.fullName = someValue
                                 return someValue
                             }}
-                            placeholder='Ivanov Ivan Ivanovich'
+                            placeholder='Иванов Иван Иванович'
+                            style={formik.touched.fullName && formik.errors.fullName ? {border: '1px solid indianred'} : undefined}
                         />
                         {formik.touched.fullName && formik.errors.fullName ?
-                            <div style={{color: 'red'}}>{formik.errors.fullName}</div> : null}
+                            <div style={{color: 'indianred'}}>{formik.errors.fullName}</div> : null}
                     </Grid>
-                    <Grid item xs={6} md={4}>
+                    <Grid item md={5} style={{border: '1px solid black'}} className={styles.birth}>
+                        <div style={{marginBottom: '15px'}}>
+                             Дата Рождения
+                        </div>
                         <TextField
-                            label="Date of birth"
-                            style={{marginTop: '20px'}}
                             type="date"
                             {...formik.getFieldProps('birth')}
                             inputProps={{max: new Date().toISOString().slice(0, 10)}}
-                            focused
+
                         />
                         {formik.touched.birth && formik.errors.birth ?
-                            <div style={{color: 'red'}}>{formik.errors.birth}</div> : null}
+                            <div style={{color: 'indianred'}}>{formik.errors.birth}</div> : null}
                     </Grid>
-                    <Grid item xs={6} md={12}>
-                            Gender :
+                    <Grid item xs={4} style={{border: '1px solid black'}}>
+                        Gender :
                         <Box>
                             <FormControl component="fieldset">
                                 <RadioGroup
@@ -148,7 +161,7 @@ export const Appointment = () => {
                             </FormControl>
                         </Box>
                     </Grid>
-                    <Grid item xs={6} md={12}>
+                    <Grid item xs={8} style={{border: '1px solid black'}}>
                         <Box>
                             <PhoneInput
                                 onChange={(value, data, e, formattedValue) => {
@@ -162,63 +175,70 @@ export const Appointment = () => {
                                     borderColor: "red"
                                 }}
                             />
-                        {formik.touched.telNumber && formik.errors.telNumber ?
-                            <div style={{color: 'red'}}>{formik.errors.telNumber}</div> : null}
+                            {formik.touched.telNumber && formik.errors.telNumber ?
+                                <div style={{color: 'red'}}>{formik.errors.telNumber}</div> : null}
                         </Box>
                     </Grid>
-                    <Box sx={{minWidth: 120}}>
-                        <FormControl fullWidth>
-                            <TextField
-                                name="groupClients"
-                                value={formik.values.groupClients}
-                                label="Group clients"
+                    <Grid item xs={8} style={{border: '1px solid black'}}>
+                        <Box sx={{minWidth: 120}}>
+                            <FormControl fullWidth>
+                                <TextField
+                                    name="groupClients"
+                                    value={formik.values.groupClients}
+                                    label="Group clients"
+                                    onChange={formik.handleChange}
+                                    select
+                                    focused
+                                >
+                                    <MenuItem value={'VIP'}>VIP</MenuItem>
+                                    <MenuItem value={'Проблемные'}>Проблемные</MenuItem>
+                                    <MenuItem value={'ОМС'}>ОМС</MenuItem>
+                                    <MenuItem value={'ДМС'}>ДМС</MenuItem>
+                                </TextField>
+                                {formik.touched.groupClients && formik.errors.groupClients ?
+                                    <div style={{color: 'red'}}>{formik.errors.groupClients}</div> : null}
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={4} style={{border: '1px solid black'}}>
+                        <Box>
+                            <FormControl fullWidth>
+                                <TextField
+                                    name="doctor"
+                                    value={formik.values.doctor}
+                                    label="Doctor"
+                                    onChange={formik.handleChange}
+                                    select
+                                    focused
+                                >
+                                    <MenuItem value={'Петров'}>Петров</MenuItem>
+                                    <MenuItem value={'Захаров'}>Захаров</MenuItem>
+                                    <MenuItem value={'Черниговская'}>Черниговская</MenuItem>
+                                </TextField>
+                                {formik.touched.doctor && formik.errors.doctor ?
+                                    <div style={{color: 'red'}}>{formik.errors.doctor}</div> : null}
+                            </FormControl>
+                        </Box>
+                    </Grid>
+                    <Grid style={{border: '1px solid black'}}>
+                        <Box>
+                            Send me a sms with confirmation
+                            <Checkbox
+                                name={'sms'}
+                                checked={formik.values.sms}
                                 onChange={formik.handleChange}
-                                select
-                                focused
-                            >
-                                <MenuItem value={'VIP'}>VIP</MenuItem>
-                                <MenuItem value={'Проблемные'}>Проблемные</MenuItem>
-                                <MenuItem value={'ОМС'}>ОМС</MenuItem>
-                                <MenuItem value={'ДМС'}>ДМС</MenuItem>
-                            </TextField>
-                            {formik.touched.groupClients && formik.errors.groupClients ?
-                                <div style={{color: 'red'}}>{formik.errors.groupClients}</div> : null}
-                        </FormControl>
-                    </Box>
-                    <Box>
-                        <FormControl fullWidth>
-                            <TextField
-                                name="doctor"
-                                value={formik.values.doctor}
-                                label="Doctor"
-                                onChange={formik.handleChange}
-                                select
-                                focused
-                            >
-                                <MenuItem value={'Петров'}>Петров</MenuItem>
-                                <MenuItem value={'Захаров'}>Захаров</MenuItem>
-                                <MenuItem value={'Черниговская'}>Черниговская</MenuItem>
-                            </TextField>
-                            {formik.touched.doctor && formik.errors.doctor ?
-                                <div style={{color: 'red'}}>{formik.errors.doctor}</div> : null}
-                        </FormControl>
-                    </Box>
-                    <Box>
-                        Send me a sms with confirmation
-                        <Checkbox
-                            name={'sms'}
-                            checked={formik.values.sms}
-                            onChange={formik.handleChange}
-                            inputProps={{'aria-label': 'controlled'}}
-                        />
-                        {formik.touched.sms && formik.errors.sms ?
-                            <div style={{color: 'red'}}>{formik.errors.sms}</div> : null}
-                    </Box>
-                    <Button color="primary" variant="contained" fullWidth type="submit">
-                        Submit
-                    </Button>
-                </FormGroup>
-            </form>
-        </Grid>
+                                inputProps={{'aria-label': 'controlled'}}
+                            />
+                            {formik.touched.sms && formik.errors.sms ?
+                                <div style={{color: 'red'}}>{formik.errors.sms}</div> : null}
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
+
+            <Button color="primary" variant="contained" fullWidth type="submit" size={"medium"}>
+                Send appointment
+            </Button>
+        </form>
     );
 };
