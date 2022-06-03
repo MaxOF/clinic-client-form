@@ -14,6 +14,11 @@
       "email": "admin@gmail.com",
       "password": "admin12345",
       "id": 4
+    },
+    {
+      "email": "asd@mail.ru",
+      "password": "123123123123",
+      "id": 5
     }
   ],
   "appointments": [
@@ -56,6 +61,16 @@
       "doctor": "Петров",
       "sms": true,
       "id": 4
+    },
+    {
+      "fullName": "Федоров Александр Владимирович",
+      "birth": "1975-09-13",
+      "telNumber": "79104522311",
+      "gender": "мужской",
+      "groupClients": "ОМС",
+      "doctor": "Черниговская",
+      "sms": true,
+      "id": 5
     }
   ]
 }

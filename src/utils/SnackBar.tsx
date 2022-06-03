@@ -43,7 +43,7 @@ export const SnackBar = () => {
         }
     }
     return (
-        <Snackbar open={error !== null || createdAppointment !== false} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar open={error !== null || createdAppointment !== false} autoHideDuration={3000} onClose={handleClose}>
             <Alert severity={alertHandler()} sx={{width: '100%'}} onClose={handleClose}>
                 {messageHandler()}
             </Alert>
