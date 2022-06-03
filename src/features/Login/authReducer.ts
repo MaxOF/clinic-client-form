@@ -15,7 +15,7 @@ export type UserType = {
     password: string
 }
 
-type InitialStateType = {
+export type InitialStateType = {
     isLoggedIn: boolean
     users: UserType[]
     isAuth: boolean

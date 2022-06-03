@@ -37,7 +37,6 @@ export const SignUp = () => {
         }
     })
 
-
     return (
         <Grid container justifyContent={'center'}>
             <Grid item justifyContent={'center'}>
@@ -69,9 +68,21 @@ export const SignUp = () => {
                             />
                             {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                                 <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
-
-                            <Button type="submit" variant={'contained'} color={'primary'} style={{margin: '20px 7px 7px 7px'}}>Sign Up</Button>
-                            <Button variant="outlined" onClick={() => navigate('/login')} color='error' style={{margin: '7px 7px 30px 7px'}}>Cancel
+                            <Button
+                                type="submit"
+                                variant={'contained'}
+                                color={'primary'}
+                                style={{margin: '20px 7px 7px 7px'}}
+                            >
+                                Sign Up
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                onClick={() => navigate('/login')}
+                                color='error'
+                                style={{margin: '7px 7px 30px 7px'}}
+                            >
+                                Cancel
                             </Button>
                         </FormGroup>
                     </FormControl>

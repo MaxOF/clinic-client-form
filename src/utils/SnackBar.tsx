@@ -1,11 +1,14 @@
 import React from 'react';
-import {Snackbar} from "@mui/material";
-import MuiAlert, {AlertProps} from '@mui/material/Alert';
-import {AppRootStateType, useAppSelector} from "../app/store";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
+
+import {Snackbar} from "@mui/material";
+import MuiAlert, {AlertProps} from '@mui/material/Alert';
+
+import {AppRootStateType, useAppSelector} from "../app/store";
 import {setAppError} from "../app/appReducer";
 import {addAppointment, DispatchThunkAppointment} from "../features/Appointment/appointmentReducer";
+
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props, ref) {
@@ -15,8 +18,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 export const SnackBar = () => {
     const {error} = useAppSelector(state => state.app)
     const {createdAppointment} = useAppSelector(state => state.appointment)
-
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, DispatchThunkAppointment>>()
+
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
